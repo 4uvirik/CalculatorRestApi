@@ -11,7 +11,7 @@ import (
 func RunEchoServer() {
 	e := echo.New()
 
-	e.POST("/json", handlePost)
+	e.POST("/json", postSumHandler)
 
 	e.Logger.Fatal(e.Start(":8080"))
 }
@@ -21,7 +21,7 @@ type Message struct {
 	Text string `json:"text"`
 }
 
-func handlePost(c echo.Context) error {
+func postSumHandler(c echo.Context) error {
 	var msg Message
 
 	if err := c.Bind(&msg); err != nil {
