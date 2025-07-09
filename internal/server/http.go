@@ -1,7 +1,7 @@
 package server
 
 import (
-	"CalculatorRestApi/build/calc"
+	"CalculatorRestApi/internal/calc"
 	"fmt"
 	"github.com/labstack/echo/v4"
 	"net/http"
