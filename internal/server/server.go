@@ -2,7 +2,6 @@ package server
 
 import (
 	"CalculatorRestApi/internal/calc"
-	"fmt"
 	"github.com/labstack/echo/v4"
 	"net/http"
 )
@@ -20,6 +19,7 @@ type Message struct {
 	Text string `json:"text"`
 }
 
+// Структура для ответа json
 type Result struct {
 	Result int `json:"result"`
 }
@@ -31,13 +31,13 @@ func postSumHandler(c echo.Context) error {
 		return c.String(http.StatusBadRequest, "Ошибка запроса")
 	}
 
-	fmt.Println("Получены числа:", msg.Text)
+	c.Logger().Infof("Получены числа: %s", msg.Text)
 
-	calc, err := calc.ResultCalc(msg.Text)
+	result, err := calc.SumForPostString(msg.Text)
 	if err != nil {
 		return c.String(http.StatusBadRequest, err.Error())
 	}
-	return c.JSON(http.StatusOK, Result{Result: calc})
+	return c.JSON(http.StatusOK, Result{Result: result})
 }
 
 /*func RunServer() {

@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func ResultCalc(jsonPost string) (int, error) {
+func SumForPostString(jsonPost string) (int, error) {
 	digits, err := convertStringToInt(jsonPost)
 	if err != nil {
 		return 0, err
@@ -23,21 +23,21 @@ func convertStringToInt(input string) ([]int, error) {
 		return nil, errors.New("Введите хотя бы два числа\n")
 	}
 
-	var newSlice []int
+	var number []int
 	for _, n := range numbers {
 		num, err := strconv.Atoi(n)
 		if err != nil {
 			return nil, errors.New("Недопустимое значение, введите целые числа через пробел или запятую\n")
 		}
-		newSlice = append(newSlice, num)
+		number = append(number, num)
 	}
-	return newSlice, nil
+	return number, nil
 }
 
 // Подсчет суммы чисел в слайсе
-func sumNumbers(newSlice []int) int {
+func sumNumbers(number []int) int {
 	sum := 0
-	for _, n := range newSlice {
+	for _, n := range number {
 		sum += n
 	}
 	return sum
