@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/labstack/echo/v4"
 	"net/http"
-	"strconv"
 )
 
 func RunEchoServer() {
@@ -21,6 +20,10 @@ type Message struct {
 	Text string `json:"text"`
 }
 
+type Result struct {
+	Result int `json:"result"`
+}
+
 func postSumHandler(c echo.Context) error {
 	var msg Message
 
@@ -34,7 +37,7 @@ func postSumHandler(c echo.Context) error {
 	if err != nil {
 		return c.String(http.StatusBadRequest, err.Error())
 	}
-	return c.String(http.StatusOK, "Сумма чисел равна:\n"+strconv.Itoa(calc))
+	return c.JSON(http.StatusOK, Result{Result: calc})
 }
 
 /*func RunServer() {
