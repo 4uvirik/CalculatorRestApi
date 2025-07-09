@@ -1,7 +1,7 @@
 package server
 
 import (
-	calc2 "CalculatorWithRESTAPI/build/calc"
+	"CalculatorRestApi/build/calc"
 	"fmt"
 	"io"
 	"log"
@@ -28,7 +28,7 @@ func handlePost(w http.ResponseWriter, req *http.Request) {
 			http.Error(w, "Ошибка чтения тела запроса", http.StatusBadRequest)
 			return
 		}
-		calc, err := calc2.ResultCalc(string(body))
+		calc, err := calc.ResultCalc(string(body))
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusBadRequest)
 			return

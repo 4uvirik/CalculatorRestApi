@@ -1,7 +1,7 @@
 package main
 
 import (
-	"CalculatorWithRESTAPI/internal/server"
+	"CalculatorRestApi/internal/server"
 )
 
 func main() {
