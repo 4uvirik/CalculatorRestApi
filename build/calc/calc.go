@@ -6,8 +6,8 @@ import (
 	"strings"
 )
 
-func ResultCalc(bodyPost string) (int, error) {
-	digits, err := convertStringToInt(bodyPost)
+func ResultCalc(jsonPost string) (int, error) {
+	digits, err := convertStringToInt(jsonPost)
 	if err != nil {
 		return 0, err
 	}
@@ -20,14 +20,14 @@ func convertStringToInt(input string) ([]int, error) {
 	numbers := strings.Fields(input) // Функция разбивает данные по пробелам
 	// Проверяем не пустая ли строка
 	if len(numbers) == 0 {
-		return nil, errors.New("Введите хотя бы одно число")
+		return nil, errors.New("Введите хотя бы два числа\n")
 	}
 
 	var newSlice []int
 	for _, n := range numbers {
 		num, err := strconv.Atoi(n)
 		if err != nil {
-			return nil, errors.New("Недопустимое значение, введите целые числа через пробел или запятую")
+			return nil, errors.New("Недопустимое значение, введите целые числа через пробел или запятую\n")
 		}
 		newSlice = append(newSlice, num)
 	}

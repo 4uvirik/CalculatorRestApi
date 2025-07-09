@@ -6,6 +6,7 @@ import (
 
 func main() {
 
-	server.RunServer()
+	server.RunEchoServer()
+	//server.RunServer()
 
 }
