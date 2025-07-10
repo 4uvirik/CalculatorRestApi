@@ -14,9 +14,9 @@ func RunEchoServer() {
 	e.Logger.Fatal(e.Start(":8080"))
 }
 
-// Структура для POST запроса json
-type Message struct {
-	Text string `json:"text"`
+// Структура для запроса json
+type Input struct {
+	Numbers []int `json:"numbers"`
 }
 
 // Структура для ответа json
@@ -25,17 +25,19 @@ type Result struct {
 }
 
 func postSumHandler(c echo.Context) error {
-	var msg Message
+	var inp Input
 
-	if err := c.Bind(&msg); err != nil {
+	if err := c.Bind(&inp); err != nil {
 		return c.String(http.StatusBadRequest, "Ошибка запроса")
 	}
 
-	c.Logger().Infof("Получены числа: %s", msg.Text)
-
-	result, err := calc.SumForPostString(msg.Text)
-	if err != nil {
-		return c.String(http.StatusBadRequest, err.Error())
+	if len(inp.Numbers) == 0 {
+		return c.String(http.StatusBadRequest, "Нет вводных данных")
 	}
+
+	c.Logger().Infof("Получены числа: %v", inp.Numbers)
+
+	result := calc.SumNumbers(inp.Numbers)
+
 	return c.JSON(http.StatusOK, Result{Result: result})
 }
