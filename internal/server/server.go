@@ -35,6 +35,7 @@ func postSumHandler(c echo.Context) error {
 		return c.String(http.StatusBadRequest, "Нет вводных данных")
 	}
 
+	// !!!На таске 4 заменить логер
 	c.Logger().Infof("Получены числа: %v", inp.Numbers)
 
 	result := calc.SumNumbers(inp.Numbers)
