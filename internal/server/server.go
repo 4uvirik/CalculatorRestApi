@@ -9,7 +9,7 @@ import (
 func RunEchoServer() {
 	e := echo.New()
 
-	e.POST("/json", postSumHandler)
+	e.POST("/json", sumHandler)
 
 	e.Logger.Fatal(e.Start(":8080"))
 }
@@ -24,7 +24,7 @@ type Result struct {
 	Result int `json:"result"`
 }
 
-func postSumHandler(c echo.Context) error {
+func sumHandler(c echo.Context) error {
 	var inp Input
 
 	if err := c.Bind(&inp); err != nil {
