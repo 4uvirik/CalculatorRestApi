@@ -24,15 +24,27 @@ type Result struct {
 	Result int `json:"result"`
 }
 
+// Структура для ошибок json
+type Errors struct {
+	Code    int    `json:"code"`
+	Massage string `json:"massage"`
+}
+
 func sumHandler(c echo.Context) error {
 	var inp Input
 
 	if err := c.Bind(&inp); err != nil {
-		return c.String(http.StatusBadRequest, "Ошибка запроса")
+		return c.JSON(http.StatusBadRequest, Errors{
+			Code:    400,
+			Massage: "Ошибка запроса",
+		})
 	}
 
 	if len(inp.Numbers) == 0 {
-		return c.String(http.StatusBadRequest, "Нет вводных данных")
+		return c.JSON(http.StatusBadRequest, Errors{
+			Code:    400,
+			Massage: "Нет полученных данных",
+		})
 	}
 
 	// !!!На таске 4 заменить логер
