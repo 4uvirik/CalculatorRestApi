@@ -5,14 +5,17 @@ import (
 	"os"
 )
 
+type ServerConfig struct {
+	Port string `json:"port"`
+}
+type LoggerConfig struct {
+	Level  string `json:"level"`
+	Format string `json:"format"`
+}
+
 type Config struct {
-	Server struct {
-		Port string `json:"port"`
-	}
-	Logger struct {
-		Level  string `json:"level"`
-		Format string `json:"format"`
-	}
+	Server ServerConfig `json:"server"`
+	Logger LoggerConfig `json:"logger"`
 }
 
 func LoadConfig(path string) (*Config, error) {
