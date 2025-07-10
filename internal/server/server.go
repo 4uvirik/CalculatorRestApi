@@ -1,18 +1,11 @@
 package server
 
 import (
+	"CalculatorRestApi/config"
 	"CalculatorRestApi/internal/calc"
 	"github.com/labstack/echo/v4"
 	"net/http"
 )
-
-func RunEchoServer() {
-	e := echo.New()
-
-	e.POST("/json", sumHandler)
-
-	e.Logger.Fatal(e.Start(":8080"))
-}
 
 // Структура для запроса json
 type Input struct {
@@ -28,6 +21,14 @@ type Result struct {
 type Errors struct {
 	Code    int    `json:"code"`
 	Massage string `json:"massage"`
+}
+
+func RunEchoServer(cfg *config.Config) {
+	e := echo.New()
+
+	e.POST("/json", sumHandler)
+
+	e.Logger.Fatal(e.Start(cfg.Server.Port))
 }
 
 func sumHandler(c echo.Context) error {
