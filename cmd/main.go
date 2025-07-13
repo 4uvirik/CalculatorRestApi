@@ -14,8 +14,8 @@ func main() {
 		log.Fatalf("failed to load config: %v", err)
 	}
 
-	fmt.Println("Порт:", cfg.Server.Port)
-	fmt.Println("Уровень логирования:", cfg.Logger.Level, "Формат лоигрвоания", cfg.Logger.Format)
+	fmt.Println("Server port:", cfg.Server.Port)
+	fmt.Println("Logger level:", cfg.Logger.Level, "Logger format", cfg.Logger.Format)
 
 	server.RunEchoServer(cfg)
 
