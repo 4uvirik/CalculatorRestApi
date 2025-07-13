@@ -2,6 +2,7 @@ package server
 
 import (
 	"CalculatorRestApi/internal/calc"
+	"CalculatorRestApi/internal/models"
 	"github.com/labstack/echo/v4"
 	"net/http"
 )
@@ -14,34 +15,18 @@ func RunEchoServer() {
 	e.Logger.Fatal(e.Start(":8080"))
 }
 
-// Структура для запроса json
-type SumRequest struct {
-	Numbers []int `json:"numbers"`
-}
-
-// Структура для ответа json
-type SumResponse struct {
-	Result int `json:"result"`
-}
-
-// Структура для ошибок json
-type Errors struct {
-	Code    int    `json:"code"`
-	Message string `json:"message"`
-}
-
 func sumHandler(c echo.Context) error {
-	var req SumRequest
+	var req models.SumRequest
 
 	if err := c.Bind(&req); err != nil {
-		return c.JSON(http.StatusBadRequest, Errors{
+		return c.JSON(http.StatusBadRequest, models.ErrorResponse{
 			Code:    400,
 			Message: "Ошибка запроса",
 		})
 	}
 
 	if len(req.Numbers) == 0 {
-		return c.JSON(http.StatusBadRequest, Errors{
+		return c.JSON(http.StatusBadRequest, models.ErrorResponse{
 			Code:    400,
 			Message: "Нет полученных данных",
 		})
@@ -52,5 +37,5 @@ func sumHandler(c echo.Context) error {
 
 	result := calc.SumNumbers(req.Numbers)
 
-	return c.JSON(http.StatusOK, SumResponse{Result: result})
+	return c.JSON(http.StatusOK, models.SumResponse{Result: result})
 }
