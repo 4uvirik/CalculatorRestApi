@@ -9,7 +9,7 @@ import (
 func RunEchoServer() {
 	e := echo.New()
 
-	e.POST("/json", sumHandler)
+	e.POST("/calculate/sum", sumHandler)
 
 	e.Logger.Fatal(e.Start(":8080"))
 }
