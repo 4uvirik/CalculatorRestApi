@@ -6,7 +6,6 @@ import (
 	"CalculatorRestApi/internal/models"
 	"fmt"
 	"github.com/labstack/echo/v4"
-	"github.com/labstack/gommon/log"
 	"github.com/sirupsen/logrus"
 	"net/http"
 )
@@ -15,13 +14,13 @@ func RunEchoServer(cfg *config.Config, logger *logrus.Logger, store *models.Safe
 	e := echo.New()
 
 	e.POST("/calculate/sum", func(c echo.Context) error {
-		return sumHandler(c, store)
+		return sumHandler(c, store, logger)
 	})
 
 	e.Logger.Fatal(e.Start(cfg.Server.Port))
 }
 
-func sumHandler(c echo.Context, store *models.SafeStore) error {
+func sumHandler(c echo.Context, store *models.SafeStore, logger *logrus.Logger) error {
 	var req models.SumRequest
 
 	if err := c.Bind(&req); err != nil {
@@ -39,7 +38,7 @@ func sumHandler(c echo.Context, store *models.SafeStore) error {
 	}
 
 	// Пробую использовать новый логер
-	log.Infof("Получены числа: %v", req.Numbers)
+	logger.Infof("Получены числа: %v", req.Numbers)
 
 	result := calc.SumNumbers(req.Numbers)
 
