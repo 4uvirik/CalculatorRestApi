@@ -5,10 +5,12 @@ import (
 	"CalculatorRestApi/internal/calc"
 	"CalculatorRestApi/internal/models"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/gommon/log"
+	"github.com/sirupsen/logrus"
 	"net/http"
 )
 
-func RunEchoServer(cfg *config.Config) {
+func RunEchoServer(cfg *config.Config, logger *logrus.Logger) {
 	e := echo.New()
 
 	e.POST("/calculate/sum", sumHandler)
@@ -33,8 +35,8 @@ func sumHandler(c echo.Context) error {
 		})
 	}
 
-	// !!!На таске 4 заменить логер
-	c.Logger().Infof("Получены числа: %v", req.Numbers)
+	// Пробую использовать новый логер
+	log.Infof("Получены числа: %v", req.Numbers)
 
 	result := calc.SumNumbers(req.Numbers)
 
