@@ -14,13 +14,13 @@ func RunEchoServer(cfg *config.Config, logger *logrus.Logger, store *models.Safe
 	e := echo.New()
 
 	e.POST("/calculate/sum", func(c echo.Context) error {
-		return sumHandler(c, store, logger)
+		return sumHandler(c, logger, store)
 	})
 
 	e.Logger.Fatal(e.Start(cfg.Server.Port))
 }
 
-func sumHandler(c echo.Context, store *models.SafeStore, logger *logrus.Logger) error {
+func sumHandler(c echo.Context, logger *logrus.Logger, store *models.SafeStore) error {
 	var req models.SumRequest
 
 	if err := c.Bind(&req); err != nil {
