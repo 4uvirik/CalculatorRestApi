@@ -20,7 +20,7 @@ type SumRequest struct {
 }
 
 // Структура для ответа json
-type Result struct {
+type SumResponse struct {
 	Result int `json:"result"`
 }
 
@@ -52,5 +52,5 @@ func sumHandler(c echo.Context) error {
 
 	result := calc.SumNumbers(req.Numbers)
 
-	return c.JSON(http.StatusOK, Result{Result: result})
+	return c.JSON(http.StatusOK, SumResponse{Result: result})
 }
