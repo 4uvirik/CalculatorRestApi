@@ -27,7 +27,7 @@ type Result struct {
 // Структура для ошибок json
 type Errors struct {
 	Code    int    `json:"code"`
-	Massage string `json:"massage"`
+	Message string `json:"message"`
 }
 
 func sumHandler(c echo.Context) error {
@@ -36,14 +36,14 @@ func sumHandler(c echo.Context) error {
 	if err := c.Bind(&inp); err != nil {
 		return c.JSON(http.StatusBadRequest, Errors{
 			Code:    400,
-			Massage: "Ошибка запроса",
+			Message: "Ошибка запроса",
 		})
 	}
 
 	if len(inp.Numbers) == 0 {
 		return c.JSON(http.StatusBadRequest, Errors{
 			Code:    400,
-			Massage: "Нет полученных данных",
+			Message: "Нет полученных данных",
 		})
 	}
 
