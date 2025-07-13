@@ -15,7 +15,7 @@ func RunEchoServer() {
 }
 
 // Структура для запроса json
-type Input struct {
+type SumRequest struct {
 	Numbers []int `json:"numbers"`
 }
 
@@ -31,16 +31,16 @@ type Errors struct {
 }
 
 func sumHandler(c echo.Context) error {
-	var inp Input
+	var req SumRequest
 
-	if err := c.Bind(&inp); err != nil {
+	if err := c.Bind(&req); err != nil {
 		return c.JSON(http.StatusBadRequest, Errors{
 			Code:    400,
 			Message: "Ошибка запроса",
 		})
 	}
 
-	if len(inp.Numbers) == 0 {
+	if len(req.Numbers) == 0 {
 		return c.JSON(http.StatusBadRequest, Errors{
 			Code:    400,
 			Message: "Нет полученных данных",
@@ -48,9 +48,9 @@ func sumHandler(c echo.Context) error {
 	}
 
 	// !!!На таске 4 заменить логер
-	c.Logger().Infof("Получены числа: %v", inp.Numbers)
+	c.Logger().Infof("Получены числа: %v", req.Numbers)
 
-	result := calc.SumNumbers(inp.Numbers)
+	result := calc.SumNumbers(req.Numbers)
 
 	return c.JSON(http.StatusOK, Result{Result: result})
 }
