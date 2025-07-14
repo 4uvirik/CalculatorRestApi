@@ -15,5 +15,9 @@ func RunEchoServer(cfg *config.Config, logger *logrus.Logger, store *models.Safe
 		return handlers.SumHandler(c, logger, store)
 	})
 
+	e.POST("/calculate/multiply", func(c echo.Context) error {
+		return handlers.MultiplyHandler(c, logger, store)
+	})
+
 	e.Logger.Fatal(e.Start(cfg.Server.Port))
 }
