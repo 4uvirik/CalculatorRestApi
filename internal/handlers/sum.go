@@ -10,7 +10,7 @@ import (
 )
 
 func SumHandler(c echo.Context, logger *logrus.Logger, store *models.SafeStore) error {
-	var req models.SumRequest
+	var req models.Request
 
 	if err := c.Bind(&req); err != nil {
 		return c.JSON(http.StatusBadRequest, models.ErrorResponse{
@@ -37,5 +37,5 @@ func SumHandler(c echo.Context, logger *logrus.Logger, store *models.SafeStore) 
 	// Сохранение в памяти ключ: значение
 	store.Save(key, result)
 
-	return c.JSON(http.StatusOK, models.SumResponse{Result: result})
+	return c.JSON(http.StatusOK, models.Response{Result: result})
 }

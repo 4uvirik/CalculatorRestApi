@@ -1,11 +1,11 @@
 package models
 
 // Структура для запроса json
-type SumRequest struct {
+type Request struct {
 	Numbers []int `json:"numbers"`
 }
 
 // Структура для ответа json
-type SumResponse struct {
+type Response struct {
 	Result int `json:"result"`
 }

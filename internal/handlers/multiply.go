@@ -10,7 +10,7 @@ import (
 )
 
 func MultiplyHandler(c echo.Context, logger *logrus.Logger, store *models.SafeStore) error {
-	var req models.MultiplyRequest
+	var req models.Request
 
 	if err := c.Bind(&req); err != nil {
 		return c.JSON(http.StatusBadRequest, models.ErrorResponse{
@@ -37,5 +37,5 @@ func MultiplyHandler(c echo.Context, logger *logrus.Logger, store *models.SafeSt
 	// Сохранение в памяти ключ: значение
 	store.Save(key, result)
 
-	return c.JSON(http.StatusOK, models.MultiplyResponse{Result: result})
+	return c.JSON(http.StatusOK, models.Response{Result: result})
 }
