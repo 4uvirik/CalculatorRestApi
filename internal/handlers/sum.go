@@ -14,14 +14,12 @@ func SumHandler(c echo.Context, logger *logrus.Logger, store *models.SafeStore) 
 
 	if err := c.Bind(&req); err != nil {
 		return c.JSON(http.StatusBadRequest, models.ErrorResponse{
-			Code:    400,
 			Message: "Ошибка запроса",
 		})
 	}
 
 	if len(req.Numbers) == 0 {
 		return c.JSON(http.StatusBadRequest, models.ErrorResponse{
-			Code:    400,
 			Message: "Нет полученных данных",
 		})
 	}
