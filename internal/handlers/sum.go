@@ -5,6 +5,7 @@ import (
 	"CalculatorRestApi/internal/models"
 	"fmt"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/gommon/log"
 	"github.com/sirupsen/logrus"
 	"net/http"
 )
@@ -13,19 +14,21 @@ func SumHandler(c echo.Context, logger *logrus.Logger, store *models.SafeStore) 
 	var req models.Request
 
 	if err := c.Bind(&req); err != nil {
+		log.Warn("JSON binding error")
 		return c.JSON(http.StatusBadRequest, models.ErrorResponse{
 			Message: "Ошибка запроса",
 		})
 	}
 
 	if len(req.Numbers) == 0 {
+		log.Warn("Empty list of numbers")
 		return c.JSON(http.StatusBadRequest, models.ErrorResponse{
 			Message: "Нет полученных данных",
 		})
 	}
 
 	// Пробую использовать новый логер
-	logger.Infof("Получены числа: %v", req.Numbers)
+	logger.Infof("Numbers received: %v", req.Numbers)
 
 	result := calc.SumNumbers(req.Numbers)
 
