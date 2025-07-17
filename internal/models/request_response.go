@@ -2,7 +2,8 @@ package models
 
 // Структура для запроса json
 type Request struct {
-	Numbers []int `json:"numbers"`
+	Token   string `json:"token"`
+	Numbers []int  `json:"numbers"`
 }
 
 // Структура для ответа json
