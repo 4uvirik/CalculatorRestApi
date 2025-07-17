@@ -2,7 +2,7 @@ package main
 
 import (
 	"CalculatorRestApi/config"
-	logger2 "CalculatorRestApi/internal/logger"
+	"CalculatorRestApi/internal/logger"
 	"CalculatorRestApi/internal/models"
 	"CalculatorRestApi/internal/server"
 	"fmt"
@@ -17,7 +17,7 @@ func main() {
 	}
 
 	// инициализируем логгер
-	log := logger2.Init(&cfg.Logger)
+	log := logger.Init(&cfg.Logger)
 
 	// инициализируем мапу для сохранения вычеслений
 	store := models.NewSafeStore()
