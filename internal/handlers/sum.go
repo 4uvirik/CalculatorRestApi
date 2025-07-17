@@ -4,7 +4,6 @@ import (
 	"CalculatorRestApi/internal/calc"
 	"CalculatorRestApi/internal/models"
 	"github.com/labstack/echo/v4"
-	"github.com/labstack/gommon/log"
 	"github.com/sirupsen/logrus"
 	"net/http"
 )
@@ -13,21 +12,21 @@ func SumHandler(c echo.Context, logger *logrus.Logger, store *models.SafeStore) 
 	var req models.Request
 
 	if err := c.Bind(&req); err != nil {
-		log.Warn("JSON binding error")
+		logger.Warn("JSON binding error")
 		return c.JSON(http.StatusBadRequest, models.ErrorResponse{
 			Message: "Ошибка запроса",
 		})
 	}
 
 	if len(req.Numbers) == 0 {
-		log.Warn("Empty list of numbers")
+		logger.Warn("Empty list of numbers")
 		return c.JSON(http.StatusBadRequest, models.ErrorResponse{
 			Message: "Нет полученных данных",
 		})
 	}
 
 	if len(req.Token) == 0 {
-		log.Warn("Token not found")
+		logger.Warn("Token not found")
 		return c.JSON(http.StatusBadRequest, models.ErrorResponse{
 			Message: "Токен не обнаружен",
 		})
