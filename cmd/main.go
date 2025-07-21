@@ -5,11 +5,16 @@ import (
 	"CalculatorRestApi/internal/logger"
 	"CalculatorRestApi/internal/models"
 	"CalculatorRestApi/internal/server"
+	"github.com/joho/godotenv"
 	"log"
 	"os"
 )
 
 func main() {
+
+	if err := godotenv.Load(); err != nil {
+		log.Println(".env file not found")
+	}
 
 	configPath := os.Getenv("CONFIG_PATH")
 	if configPath == "" {
