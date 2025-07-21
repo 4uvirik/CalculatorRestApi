@@ -34,6 +34,6 @@ func main() {
 
 	server.RunEchoServer(cfg, log, store)
 
-	log.Infof("Configuration loaded: %v", cfg)
-	log.Infof("Server is running on port: %s", cfg.Server.Port)
+	log.WithField("config", cfg).Info("Configuration loaded")
+	log.WithField("port", cfg.Server.Port).Info("Server is running on port")
 }

@@ -33,7 +33,7 @@ func SumHandler(c echo.Context, logger *logrus.Logger, store *models.SafeStore) 
 	}
 
 	// Пробую использовать новый логер
-	logger.Infof("Numbers received: %v", req.Numbers)
+	logger.WithField("numbers", req.Numbers).Info("Numbers received")
 
 	result := calc.SumNumbers(req.Numbers)
 
@@ -42,7 +42,10 @@ func SumHandler(c echo.Context, logger *logrus.Logger, store *models.SafeStore) 
 
 	// Сохранение в памяти ключ: значение
 	store.Save(key, result)
-	logger.Infof("Stored result: %d for token: %s", result, key)
+	logger.WithFields(logrus.Fields{
+		"result": result,
+		"token":  key,
+	}).Info("Stored result")
 
 	return c.JSON(http.StatusOK, models.Response{Result: result})
 }
