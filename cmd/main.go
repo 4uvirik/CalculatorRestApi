@@ -6,11 +6,17 @@ import (
 	"CalculatorRestApi/internal/models"
 	"CalculatorRestApi/internal/server"
 	"log"
+	"os"
 )
 
 func main() {
 
-	cfg, err := config.LoadConfig("config/config.json")
+	configPath := os.Getenv("CONFIG_PATH")
+	if configPath == "" {
+		log.Fatalf("CONFIG_PATH not found. Set the correct CONFIG_PATH")
+	}
+
+	cfg, err := config.LoadConfig(configPath)
 	if err != nil {
 		log.Fatalf("failed to load config: %v", err)
 	}
