@@ -17,7 +17,6 @@ import (
 // @Success 	 200 {object} models.Response
 // @Failure 	 400 {object} models.ErrorResponse
 // @Router		 /calculate/sum [post]
-
 func SumHandler(c echo.Context, logger *logrus.Logger, store *models.SafeStore) error {
 	var req models.Request
 
