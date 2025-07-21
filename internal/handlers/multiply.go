@@ -8,6 +8,16 @@ import (
 	"net/http"
 )
 
+// @Summary      Умножение чисел
+// @Description  Умножает числа полученные через POST запрос и возвращает результат
+// @Tags		 math
+// @Accept		 json
+// @Produce 	 json
+// @Param 		 multiply body models.Request true "данные для умножения"
+// @Success		 200 {object} models.Response
+// @Failure 	 400 {object} models.ErrorResponse
+// @Router 		 /calculate/multiply [post]
+
 func MultiplyHandler(c echo.Context, logger *logrus.Logger, store *models.SafeStore) error {
 	var req models.Request
 

@@ -7,10 +7,15 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/sirupsen/logrus"
 	echoSwagger "github.com/swaggo/echo-swagger"
+
+	_ "CalculatorRestApi/docs"
+	docs "CalculatorRestApi/docs"
 )
 
 func RunEchoServer(cfg *config.Config, logger *logrus.Logger, store *models.SafeStore) {
 	e := echo.New()
+
+	docs.SwaggerInfo.Host = "localhost" + cfg.Server.Port
 
 	e.GET("/swagger/*", echoSwagger.WrapHandler)
 

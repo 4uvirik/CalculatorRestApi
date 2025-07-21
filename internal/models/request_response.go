@@ -1,12 +1,12 @@
 package models
 
-// Структура для запроса json
+// Request - структура запроса
 type Request struct {
 	Token   string `json:"token"`
 	Numbers []int  `json:"numbers"`
 }
 
-// Структура для ответа json
+// Response - структура успешного ответа
 type Response struct {
 	Result int `json:"result"`
 }

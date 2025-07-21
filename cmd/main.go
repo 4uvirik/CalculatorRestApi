@@ -1,3 +1,9 @@
+// @title 		Calculator With REST API
+// @version 	1.0
+// @description RESI API для операций сложения и умножения
+// @host 		localhost:8080
+// @BasePath 	/
+
 package main
 
 import (

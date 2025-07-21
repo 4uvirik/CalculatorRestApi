@@ -1,4 +1,9 @@
+basePath: /
+host: localhost:8080
 info:
   contact: {}
+  description: RESI API для операций сложения и умножения
+  title: Calculator With REST API
+  version: "1.0"
 paths: {}
 swagger: "2.0"

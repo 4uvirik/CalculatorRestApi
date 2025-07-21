@@ -7,7 +7,7 @@ type SafeStore struct {
 	store map[string][]int
 }
 
-// Не до конца понял что эта функция делает, но она нужна. Типа инициализирует пустую мапу
+// Инициализация мапы
 func NewSafeStore() *SafeStore {
 	return &SafeStore{
 		store: map[string][]int{},
