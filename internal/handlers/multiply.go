@@ -46,8 +46,7 @@ func MultiplyHandler(c echo.Context, logger *logrus.Logger, store *models.SafeSt
 
 	result := calc.MultiplyNumbers(req.Numbers)
 
-	// Генерация ключа на основе чисел
-	key := req.Token
+	key := req.Token // ключ - токен из запроса
 
 	// Сохранение в памяти ключ: значение
 	store.Save(key, result)
