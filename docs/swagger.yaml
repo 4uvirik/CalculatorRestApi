@@ -1,0 +1,81 @@
+basePath: /
+definitions:
+  models.ErrorResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  models.Request:
+    properties:
+      numbers:
+        items:
+          type: integer
+        type: array
+      token:
+        type: string
+    type: object
+  models.Response:
+    properties:
+      result:
+        type: integer
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: RESI API для операций сложения и умножения
+  title: Calculator With REST API
+  version: "1.0"
+paths:
+  /calculate/multiply:
+    post:
+      consumes:
+      - application/json
+      description: Умножает числа полученные через POST запрос и возвращает результат
+      parameters:
+      - description: данные для умножения
+        in: body
+        name: multiply
+        required: true
+        schema:
+          $ref: '#/definitions/models.Request'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Умножение чисел
+      tags:
+      - math
+  /calculate/sum:
+    post:
+      consumes:
+      - application/json
+      description: Суммирует числа полученные через POST запрос и возвращает результат
+      parameters:
+      - description: данные для суммы
+        in: body
+        name: sum
+        required: true
+        schema:
+          $ref: '#/definitions/models.Request'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Сумма чисел
+      tags:
+      - math
+swagger: "2.0"

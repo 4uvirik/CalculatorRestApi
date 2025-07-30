@@ -1,6 +1,6 @@
 package models
 
-// Структура для ошибок json
+// ErrorResponse - структура ответа с ошибкой
 type ErrorResponse struct {
 	Message string `json:"message"`
 }

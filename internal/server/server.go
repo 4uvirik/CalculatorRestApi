@@ -1,39 +1,37 @@
 package server
 
 import (
-	"CalculatorRestApi/internal/calc"
+	"CalculatorRestApi/config"
+	"CalculatorRestApi/internal/handlers"
 	"CalculatorRestApi/internal/models"
 	"github.com/labstack/echo/v4"
-	"net/http"
+	"github.com/sirupsen/logrus"
+	echoSwagger "github.com/swaggo/echo-swagger"
+
+	_ "CalculatorRestApi/docs"
+	docs "CalculatorRestApi/docs"
 )
 
-func RunEchoServer() {
+func SetupRouter(cfg *config.Config, logger *logrus.Logger, store *models.SafeStore) *echo.Echo {
 	e := echo.New()
 
-	e.POST("/calculate/sum", sumHandler)
+	docs.SwaggerInfo.Host = "localhost" + cfg.Server.Port
 
-	e.Logger.Fatal(e.Start(":8080"))
+	e.GET("/swagger/*", echoSwagger.WrapHandler)
+
+	e.POST("/calculate/sum", func(c echo.Context) error {
+		return handlers.SumHandler(c, logger, store)
+	})
+
+	e.POST("/calculate/multiply", func(c echo.Context) error {
+		return handlers.MultiplyHandler(c, logger, store)
+	})
+
+	return e
 }
 
-func sumHandler(c echo.Context) error {
-	var req models.SumRequest
+func RunEchoServer(cfg *config.Config, logger *logrus.Logger, store *models.SafeStore) {
 
-	if err := c.Bind(&req); err != nil {
-		return c.JSON(http.StatusBadRequest, models.ErrorResponse{
-			Message: "Ошибка запроса",
-		})
-	}
-
-	if len(req.Numbers) == 0 {
-		return c.JSON(http.StatusBadRequest, models.ErrorResponse{
-			Message: "Нет полученных данных",
-		})
-	}
-
-	// !!!На таске 4 заменить логер
-	c.Logger().Infof("Получены числа: %v", req.Numbers)
-
-	result := calc.SumNumbers(req.Numbers)
-
-	return c.JSON(http.StatusOK, models.SumResponse{Result: result})
+	e := SetupRouter(cfg, logger, store)
+	e.Logger.Fatal(e.Start(cfg.Server.Port))
 }
