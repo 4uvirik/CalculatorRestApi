@@ -12,7 +12,7 @@ import (
 	docs "CalculatorRestApi/docs"
 )
 
-func RunEchoServer(cfg *config.Config, logger *logrus.Logger, store *models.SafeStore) {
+func SetupRouter(cfg *config.Config, logger *logrus.Logger, store *models.SafeStore) *echo.Echo {
 	e := echo.New()
 
 	docs.SwaggerInfo.Host = "localhost" + cfg.Server.Port
@@ -27,5 +27,11 @@ func RunEchoServer(cfg *config.Config, logger *logrus.Logger, store *models.Safe
 		return handlers.MultiplyHandler(c, logger, store)
 	})
 
+	return e
+}
+
+func RunEchoServer(cfg *config.Config, logger *logrus.Logger, store *models.SafeStore) {
+
+	e := SetupRouter(cfg, logger, store)
 	e.Logger.Fatal(e.Start(cfg.Server.Port))
 }
