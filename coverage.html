@@ -57,7 +57,7 @@
 				
 				<option value="file0">CalculatorRestApi/cmd/main.go (0.0%)</option>
 				
-				<option value="file1">CalculatorRestApi/config/config.go (0.0%)</option>
+				<option value="file1">CalculatorRestApi/config/config.go (100.0%)</option>
 				
 				<option value="file2">CalculatorRestApi/docs/docs.go (0.0%)</option>
 				
@@ -65,9 +65,9 @@
 				
 				<option value="file4">CalculatorRestApi/internal/calc/sum.go (100.0%)</option>
 				
-				<option value="file5">CalculatorRestApi/internal/handlers/multiply.go (0.0%)</option>
+				<option value="file5">CalculatorRestApi/internal/handlers/multiply.go (87.5%)</option>
 				
-				<option value="file6">CalculatorRestApi/internal/handlers/sum.go (0.0%)</option>
+				<option value="file6">CalculatorRestApi/internal/handlers/sum.go (87.5%)</option>
 				
 				<option value="file7">CalculatorRestApi/internal/logger/logger.go (0.0%)</option>
 				
@@ -155,21 +155,21 @@ type Config struct {
         Logger LoggerConfig `json:"logger"`
 }
 
-func LoadConfig(path string) (*Config, error) <span class="cov0" title="0">{
+func LoadConfig(path string) (*Config, error) <span class="cov8" title="1">{
 
         file, err := os.Open(path)
-        if err != nil </span><span class="cov0" title="0">{
+        if err != nil </span><span class="cov8" title="1">{
                 return nil, fmt.Errorf("file config not open %w", err)
         }</span>
-        <span class="cov0" title="0">defer file.Close()
+        <span class="cov8" title="1">defer file.Close()
 
         decoder := json.NewDecoder(file)
 
         var cfg Config
-        if err := decoder.Decode(&amp;cfg); err != nil </span><span class="cov0" title="0">{
+        if err := decoder.Decode(&amp;cfg); err != nil </span><span class="cov8" title="1">{
                 return nil, fmt.Errorf("decode config failed %w", err)
         }</span>
-        <span class="cov0" title="0">return &amp;cfg, nil</span>
+        <span class="cov8" title="1">return &amp;cfg, nil</span>
 }
 </pre>
 		
@@ -366,7 +366,7 @@ import (
 // @Success                 200 {object} models.Response
 // @Failure          400 {object} models.ErrorResponse
 // @Router                  /calculate/multiply [post]
-func MultiplyHandler(c echo.Context, logger *logrus.Logger, store *models.SafeStore) error <span class="cov0" title="0">{
+func MultiplyHandler(c echo.Context, logger *logrus.Logger, store *models.SafeStore) error <span class="cov8" title="1">{
         var req models.Request
 
         if err := c.Bind(&amp;req); err != nil </span><span class="cov0" title="0">{
@@ -376,14 +376,14 @@ func MultiplyHandler(c echo.Context, logger *logrus.Logger, store *models.SafeSt
                 })
         }</span>
 
-        <span class="cov0" title="0">if len(req.Numbers) == 0 </span><span class="cov0" title="0">{
+        <span class="cov8" title="1">if len(req.Numbers) == 0 </span><span class="cov8" title="1">{
                 logger.Warn("Empty list of numbers")
                 return c.JSON(http.StatusBadRequest, models.ErrorResponse{
                         Message: "Нет полученных данных",
                 })
         }</span>
 
-        <span class="cov0" title="0">if len(req.Token) == 0 </span><span class="cov0" title="0">{
+        <span class="cov8" title="1">if len(req.Token) == 0 </span><span class="cov8" title="1">{
                 logger.Warn("Token not found")
                 return c.JSON(http.StatusBadRequest, models.ErrorResponse{
                         Message: "Токен не обнаружен",
@@ -391,7 +391,7 @@ func MultiplyHandler(c echo.Context, logger *logrus.Logger, store *models.SafeSt
         }</span>
 
         // Пробую использовать новый логер
-        <span class="cov0" title="0">logger.WithField("numbers", req.Numbers).Info("Numbers received")
+        <span class="cov8" title="1">logger.WithField("numbers", req.Numbers).Info("Numbers received")
 
         result := calc.MultiplyNumbers(req.Numbers)
 
@@ -427,7 +427,7 @@ import (
 // @Success          200 {object} models.Response
 // @Failure          400 {object} models.ErrorResponse
 // @Router                 /calculate/sum [post]
-func SumHandler(c echo.Context, logger *logrus.Logger, store *models.SafeStore) error <span class="cov0" title="0">{
+func SumHandler(c echo.Context, logger *logrus.Logger, store *models.SafeStore) error <span class="cov8" title="1">{
         var req models.Request
 
         if err := c.Bind(&amp;req); err != nil </span><span class="cov0" title="0">{
@@ -437,14 +437,14 @@ func SumHandler(c echo.Context, logger *logrus.Logger, store *models.SafeStore) 
                 })
         }</span>
 
-        <span class="cov0" title="0">if len(req.Numbers) == 0 </span><span class="cov0" title="0">{
+        <span class="cov8" title="1">if len(req.Numbers) == 0 </span><span class="cov8" title="1">{
                 logger.Warn("Empty list of numbers")
                 return c.JSON(http.StatusBadRequest, models.ErrorResponse{
                         Message: "Нет полученных данных",
                 })
         }</span>
 
-        <span class="cov0" title="0">if len(req.Token) == 0 </span><span class="cov0" title="0">{
+        <span class="cov8" title="1">if len(req.Token) == 0 </span><span class="cov8" title="1">{
                 logger.Warn("Token not found")
                 return c.JSON(http.StatusBadRequest, models.ErrorResponse{
                         Message: "Токен не обнаружен",
@@ -452,7 +452,7 @@ func SumHandler(c echo.Context, logger *logrus.Logger, store *models.SafeStore) 
         }</span>
 
         // Пробую использовать новый логер
-        <span class="cov0" title="0">logger.WithField("numbers", req.Numbers).Info("Numbers received")
+        <span class="cov8" title="1">logger.WithField("numbers", req.Numbers).Info("Numbers received")
 
         result := calc.SumNumbers(req.Numbers)
 

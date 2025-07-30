@@ -8,6 +8,7 @@ docs:
 
 tests:
 	go test ./... -coverprofile=covarage.out
+	go tool cover -func=covarage.out | grep total
 
 cover:
 	go tool cover -html=covarage.out -o coverage.html
